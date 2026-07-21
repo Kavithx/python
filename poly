@@ -1,3 +1,4 @@
+class node:
 def __init__(self, coeff, power):
         self.coeff = coeff
         self.power = power
