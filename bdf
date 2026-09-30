@@ -1,0 +1,56 @@
+from collections import deque
+Step 1: Input number of users
+n = int(input("Enter the number of users: "))
+Create adjacency list
+graph = [[] for _ in range(n)]
+Step 2: Input number of friendships
+e = int(input("Enter the number of friendships: "))
+Input friendships
+for i in range(e):
+u, v = map(int, input("Enter friendship (user1 user2): ").split())
+# Since friendship is undirected
+graph[u].append(v)
+graph[v].append(u)
+Step 3: Display the graph
+print("
+Social Network:")
+for i in range(n):
+print(i, "->", graph[i])
+
+Step 4: Display direct friends
+start = int(input("
+Enter the user to find friends: "))
+print("Direct friends of user", start, ":", graph[start])
+
+Step 5: BFS Traversal
+def bfs(start):
+visited = [False] * n
+queue = deque([start])
+visited[start] = True
+result = []
+while queue:
+user = queue.popleft()
+result.append(user)
+for friend in graph[user]:
+if not visited[friend]:
+visited[friend] = True
+queue.append(friend)
+return result
+
+Step 6: DFS Traversal
+def dfs(start):
+visited = [False] * n
+result = []
+def dfs_recursive(user):
+visited[user] = True
+result.append(user)
+for friend in graph[user]:
+if not visited[friend]:
+dfs_recursive(friend)
+dfs_recursive(start)
+return result
+
+Step 7: Display BFS and DFS
+print("
+BFS Traversal:", bfs(start))
+print("DFS Traversal:", dfs(start))
